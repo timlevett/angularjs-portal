@@ -26,16 +26,17 @@
 
         <a href="{{portlet.url}}">
           <div class="portlet-title">
-              <h1><img src="{{portlet.iconUrl}}" ng-show="portlet.faIcon === null"><i class="fa {{portlet.faIcon}}" ng-show="portlet.faIcon != null"></i>  {{ portlet.title }}</h1>
+              <img src="{{portlet.iconUrl}}" ng-show="portlet.faIcon === null"><i class="fa {{portlet.faIcon}}" ng-show="portlet.faIcon != null"></i>  <h1>{{ portlet.title }}</h1>
           </div>
         </a>
+        
         <div class='card-remove'>
            <i title="Remove" class="fa fa-times portlet-options" ng-click="mainCtrl.removePortlet(portlet.nodeId)"></i>
         </div>
         <a href="{{portlet.url}}">
-          <div class="portlet-content">
+          <!-- <div class="portlet-content">
             {{portlet.description}}
-          </div>
+          </div> -->
         </a>
       </div>
     </a>
