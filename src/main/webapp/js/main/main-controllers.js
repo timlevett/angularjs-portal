@@ -3,7 +3,7 @@
 (function() {
   var app = angular.module('portal.main.controllers', []);
 
-  app.controller('MainController', [ '$sessionStorage', '$rootScope', '$scope', 'mainService', 'miscService', function($sessionStorage, $rootScope, $scope, mainService, miscService) {
+  app.controller('MainController', [ '$firebase', '$sessionStorage', '$rootScope', '$scope', 'mainService', 'miscService', function($firebase, $sessionStorage, $rootScope, $scope, mainService, miscService) {
 
 
     miscService.pushPageview();

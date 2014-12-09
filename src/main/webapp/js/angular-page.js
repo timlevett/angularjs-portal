@@ -1,5 +1,6 @@
 (function() {
  var app = angular.module('portal', [
+    'firebase',
     'ngRoute',
     'ngStorage',
     'ui.bootstrap',

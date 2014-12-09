@@ -3,23 +3,27 @@
 (function() {
   var app = angular.module('portal.marketplace.controller', []);
 
-  app.controller('MarketplaceController', [ '$sessionStorage', '$modal', '$timeout', '$rootScope',  '$window', '$http', '$scope','$location','$routeParams','marketplaceService','miscService', function($sessionStorage,$modal,$timeout, $rootScope, $window, $http, $scope, $location, $routeParams, marketplaceService, miscService) {
+  app.controller('MarketplaceController', ['$firebase', '$sessionStorage', '$modal', '$timeout', '$rootScope',  '$window', '$http', '$scope','$location','$routeParams','marketplaceService','miscService', function($firebase, $sessionStorage,$modal,$timeout, $rootScope, $window, $http, $scope, $location, $routeParams, marketplaceService, miscService) {
 
     miscService.pushPageview();
+    
+    var url = 'https://myuw-test.firebaseio.com/portlets';
+    var ref = new Firebase(url);
+    
+    var sync = $firebase(ref);
+    
+    $scope.portlets = sync.$asArray();
 
-    $scope.$storage = $sessionStorage;
-    //init variables
     var store = this;
-    store.portlets = [];
     store.count = 0;
 
     //get marketplace portlets
     if($sessionStorage.marketplace != null) {
-        store.portlets = $sessionStorage.marketplace;
+        //$scope.portlets = $sessionStorage.marketplace;
         $scope.categories = $sessionStorage.categories;
     } else {
         marketplaceService.getPortlets().then(function(data) {
-          store.portlets = data.portlets;
+          //$scope.portlets = data.portlets;
           $scope.categories = data.categories;
           $scope.layout = data.layout;
           
@@ -60,10 +64,12 @@
 				miscService.pushGAEvent('Layout Modification', 'Add', portlet.name);
                 portlet.title = portlet.name;
                 $scope.$apply(function(){
-                    var marketplaceEntries = $.grep($sessionStorage.marketplace, function(e) { return e.fname === portlet.fname});
+                    var marketplaceEntries = $.grep($scope.portlets, function(e) { return e.fname === portlet.fname});
                     if(marketplaceEntries.length > 0) {
                         marketplaceEntries[0].hasInLayout = true;
+                        $scope.portlets.$save(marketplaceEntries[0].$id);
                     }
+                    
                 });
               },
               error: function(request, text, error) {
@@ -141,7 +147,6 @@
             $scope.searchTerm = tempFilterText;
         }, 250); // delay 250 ms
     })
-
   } ]);
   
   app.controller('RatingModalController', function ($scope, $modalInstance, marketplaceService, fname, name) {
