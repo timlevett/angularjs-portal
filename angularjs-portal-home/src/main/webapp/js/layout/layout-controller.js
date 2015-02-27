@@ -23,6 +23,9 @@
                                                 APP_FLAGS) {
     miscService.pushPageview();
     $scope.toggle = APP_FLAGS.enableToggle;
+    if($scope.toggle) {
+        $localStorage.mode = 'list';
+    }
     if(typeof $rootScope.layout === 'undefined' || $rootScope.layout == null) {
       
       $rootScope.layout = [];
@@ -157,6 +160,10 @@
     miscService.pushPageview();
     $scope.toggle = APP_FLAGS.enableToggle;
     var that = this;
+    
+    if($scope.toggle) {
+        $localStorage.mode = 'widget';
+    }
     
     if(typeof $rootScope.layout === 'undefined' || $rootScope.layout == null) {
       

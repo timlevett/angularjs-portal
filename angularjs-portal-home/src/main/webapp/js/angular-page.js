@@ -23,7 +23,7 @@
     'portal.notification.controller',
     'portal.notification.directives'
      ]);
- app.config(['$routeProvider',function($routeProvider, $locationProvider) {
+ app.config(['$routeProvider', '$localStorage',function($routeProvider, $locationProvider, $localStorage) {
 	 $routeProvider.
       when('/apps', {templateUrl: 'partials/marketplace.html'}).
       when('/features', {templateUrl: 'partials/features.html'}).
@@ -34,7 +34,13 @@
       when('/static/:fname', {templateUrl: 'partials/static-content-max.html'}).
       when('/widgets', {templateUrl: 'partials/home-widget-view.html'}).
       when('/list', {templateUrl: 'partials/home-list-view.html'}).
-      otherwise({templateUrl: 'partials/home-list-view.html'});
+      otherwise({redirectTo : function(routeParams, currentLocation, currentSearch){
+          if($localStorage && $localStorage.mode) {
+              return $localStorage.mode === 'widget' ? '/widgets' : '/list'
+          } else {
+              return '/list';
+          }
+      }});
       }
  	]);
 
