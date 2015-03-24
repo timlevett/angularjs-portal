@@ -29,6 +29,8 @@
   </repositories>
   <properties>
         <spring.version>4.1.5.RELEASE</spring.version>
+        <project.build.sourceVersion>1.7</project.build.sourceVersion>
+        <project.build.targetVersion>1.7</project.build.targetVersion>
     </properties>
   <modules>
     <module>angularjs-portal-frame</module>

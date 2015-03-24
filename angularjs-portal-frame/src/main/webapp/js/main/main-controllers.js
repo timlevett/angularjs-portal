@@ -53,7 +53,7 @@
       $scope.$storage = $localStorage;
       $scope.sidebar = [];
       mainService.getSidebar().then(function(result){
-          $scope.sidebar = result.data.sidebar;
+          $scope.sidebar = result.data;
       });
       
       this.canSee = function(storageVar) {

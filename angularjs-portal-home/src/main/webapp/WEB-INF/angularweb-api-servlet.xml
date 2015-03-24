@@ -36,6 +36,24 @@
     <!-- <context:property-override location="classpath:/override.properties" />
     <context:property-placeholder location="classpath:/placeholder.properties" /> -->
     
+    <!-- Jedis Connection -->    
+    <bean id="jedisConnectionFactory" 
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+            <property name="hostName" value='localhost'/>
+            <property name="port" value='6379'/>
+          </bean>
+          
+    <!-- Redis Template -->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory" />
+        <property name="valueSerializer">
+            <bean id="redisJsonSerializer" 
+                            class="org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer">
+                <constructor-arg type="java.lang.Class" value="edu.wisc.my.home.model.Sidebar"/>
+            </bean>   
+        </property>
+    </bean>
+    
 
     <bean id="jsonViewResolver" class="org.springframework.web.servlet.view.XmlViewResolver">
         <property name="location" value="/WEB-INF/views.xml"/>

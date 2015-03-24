@@ -10,7 +10,7 @@ angular.module('app-config', [])
           )
 .constant('SERVICE_LOC', {
                            'sessionInfo' : '/portal/web/session.json',
-                           'sidebarInfo' : '/web/samples/sidebar.json'
+                           'sidebarInfo' : '/web/api/sidebar.json'
                        });
 
 })();
